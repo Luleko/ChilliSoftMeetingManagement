@@ -1,0 +1,73 @@
+﻿@*@model IEnumerable<ChilliSoftMeetingManagement.Repository.EF.Meeting>*@
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">All Meetings</h1>
+    <p class="mb-4">
+        Summary of all meetings.<br />
+        <span><h6><i> To view more details on the Meeting item please click on the row you want to view.</i></h6></span>
+    </p>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Meetings Listed</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <a href="#" class="btn btn-primary" onclick="AddEditMeetingItem(0)" data-toggle="tooltip" data-placement="bottom" title="Add Meeting Item">Add</a>
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="font-size:8pt">
+                    <thead>
+                        <tr class="btn-primary">
+                            <th>Meeting Item</th>
+                            <th>Comment</th>
+                            <th>Status</th>
+                            <th>Action By</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in ViewBag.Meetings)
+                        {
+                            <tr>
+                                <td>
+                                        @item.MeetingItemName
+                                    </td>
+                                    <td>
+                                        @item.Comment
+                                    </td>
+                                    <td>
+                                        @item.MeetingItemStatusModel
+                                    </td>
+                                    <td>
+                                        @item.PersonAssigned
+                                    </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <input id="HiddenId" type="hidden" @item.Id />
+                                            <button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Attachments" onclick="Attachments(@item.Id)">
+                                                <span class="glyphicon glyphicon-paperclip"></span>
+                                            </button>
+                                            <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Edit" onclick="AddEditJob(@item.Id)"><i class="glyphicon glyphicon-pencil"></i> </a>
+                                            <button class="btn btn-default btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete this position" onclick="ConfirmPosition(@item.Id)">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
